@@ -34,6 +34,6 @@ variable "readonly_users" {
 variable "backend_server_ips" {
   type    = set(string)
   default = [
-    "10.1.0.1",
+    #"10.1.0.1",
     "localhost"]
 }
