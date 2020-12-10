@@ -1,18 +1,11 @@
-variable "backend_server_ips" {
-  type    = set(string)
-  default = [
-    "10.1.0.1",
-    "10.1.0.2",
-  ]
-}
-
+#host catalog
 resource "boundary_host_catalog" "backend_servers" {
   name        = "backend_servers"
   description = "Backend servers host catalog"
   type        = "static"
-  scope_id    = boundary_scope.core_infra.id
+  scope_id    = boundary_scope.infra.id
 }
-
+#hosts
 resource "boundary_host" "backend_servers" {
   for_each        = var.backend_server_ips
   type            = "static"
@@ -21,7 +14,7 @@ resource "boundary_host" "backend_servers" {
   address         = each.key
   host_catalog_id = boundary_host_catalog.backend_servers.id
 }
-
+#host sets (a revoir sur le host_ids)
 resource "boundary_host_set" "backend_servers_ssh" {
   type            = "static"
   name            = "backend_servers_ssh"
@@ -30,26 +23,26 @@ resource "boundary_host_set" "backend_servers_ssh" {
   host_ids        = [for host in boundary_host.backend_servers : host.id]
 }
 
-# create target for accessing backend servers on port :8000
+# create target for accessing backend servers on port :5000
 resource "boundary_target" "backend_servers_service" {
   type         = "tcp"
   name         = "Backend service"
   description  = "Backend service target"
-  scope_id     = boundary_scope.core_infra.id
-  default_port = "8080"
+  scope_id     = boundary_scope.infra.id
+  default_port = "5000"
 
   host_set_ids = [
-    boundary_host_set.backend_servers_ssh .id
+    boundary_host_set.backend_servers_ssh.id
   ]
 }
 
-# create target for accessing backend servers on port :22
+# create target for accessing backend servers on port :2225
 resource "boundary_target" "backend_servers_ssh" {
   type         = "tcp"
   name         = "Backend servers"
   description  = "Backend SSH target"
-  scope_id     = boundary_scope.core_infra.id
-  default_port = "22"
+  scope_id     = boundary_scope.infra.id
+  default_port = "2225"
 
   host_set_ids = [
     boundary_host_set.backend_servers_ssh.id
