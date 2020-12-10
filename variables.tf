@@ -1,18 +1,17 @@
 #est-ce vraiment utile ?
-variable "users" {
-  type    = set(string)
-  default = [
-    "Lorris",
-    "Michel",
-    "Guillaume",
-    "Tristan",
-    "Akram",
-    "Frank",
-    "Ludovic"
-  ]
-}
-
-
+# variable "users" {
+#   type    = set(string)
+#   default = [
+#     "Lorris",
+#     "Michel",
+#     "Guillaume",
+#     "Tristan",
+#     "Akram",
+#     "Frank",
+#     "Ludovic"
+#   ]
+# }
+#devops
 variable "devops_users" {
   type    = set(string)
   default = [
@@ -23,7 +22,7 @@ variable "devops_users" {
     "Akram"
   ]
 }
-
+#readonly
 variable "readonly_users" {
   type    = set(string)
   default = [
@@ -31,7 +30,7 @@ variable "readonly_users" {
     "Ludovic"
   ]
 }
-
+#servers ips
 variable "backend_server_ips" {
   type    = set(string)
   default = [

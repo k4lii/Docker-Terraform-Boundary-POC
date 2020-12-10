@@ -4,7 +4,6 @@ resource "boundary_auth_method" "password" {
   scope_id = boundary_scope.corp.id
   type     = "password"
 }
-
 #creation des devops_users boundary 
 resource "boundary_user" "devops_users" {
   for_each    = var.devops_users
@@ -12,7 +11,6 @@ resource "boundary_user" "devops_users" {
   description = "User resource for ${each.key}"
   scope_id    = boundary_scope.corp.id
 }
-
 #creation des users readonly boundary
 resource "boundary_user" "readonly_users" {
   for_each    = var.readonly_users
@@ -20,10 +18,9 @@ resource "boundary_user" "readonly_users" {
   description = "User resource for ${each.key}"
   scope_id    = boundary_scope.corp.id
 }
-
-#creation de la methode d'authentification login/password pour les users
+#creation de la methode d'authentification login/password pour les users (devops)
 resource "boundary_account" "users_account" {
-  for_each       = var.users
+  for_each       = var.devops_users
   name           = each.key
   description    = "User account for ${each.key}"
   type           = "password"
@@ -31,7 +28,6 @@ resource "boundary_account" "users_account" {
   password       = "password"
   auth_method_id = boundary_auth_method.password.id
 }
-
 #creation du groupe readonly
 resource "boundary_group" "readonly" {
   name        = "read-only"
@@ -40,7 +36,7 @@ resource "boundary_group" "readonly" {
   scope_id    = boundary_scope.corp.id
 }
 #creation du groupe devops
-resource "boundary_group" "admin" {
+resource "boundary_group" "devops" {
   name        = "DevOps"
   description = "Organization group for devops users"
   member_ids  = [for user in boundary_user.devops_users : user.id]
@@ -58,9 +54,10 @@ resource "boundary_role" "organization_readonly" {
 resource "boundary_role" "organization_admin" {
   name        = "admin"
   description = "Administrator role"
-  principal_ids = concat(
-    [for user in boundary_user.devops_users: user.id]
-  )
+  principal_ids = [boundary_group.devops.id]
+  # principal_ids = concat(
+  #  [for user in boundary_user.devops_users: user.id]
+  # )
   grant_strings   = ["id=*;type=*;actions=create,read,update,delete"]
   scope_id = boundary_scope.corp.id
 }
