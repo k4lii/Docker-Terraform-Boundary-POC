@@ -4,9 +4,9 @@ resource "boundary_auth_method" "password" {
   scope_id = boundary_scope.corp.id
   type     = "password"
 }
-#creation de la methode d'authentification login/password pour les (devops)
-resource "boundary_account" "devops_account" {
-  for_each       = var.devops_users
+#creation de la methode d'authentification login/password pour les users
+resource "boundary_account" "account" {
+  for_each       = var.users
   name           = each.key
   description    = "User account for ${each.key}"
   type           = "password"
@@ -19,7 +19,7 @@ resource "boundary_user" "devops_users" {
   for_each    = var.devops_users
   name        = each.key
   # [for account in boundary_account.devops_account : account.id]
-  account_ids = [ boundary_account.devops_account[each.key].id ]
+  account_ids = [ boundary_account.account[each.key].id ]
   #account_ids = [for account in boundary_account.devops_account : account.id]
   description = "User resource for ${each.key}"
   scope_id    = boundary_scope.corp.id
