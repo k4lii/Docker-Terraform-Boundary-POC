@@ -1,16 +1,3 @@
-#est-ce vraiment utile ?
-# variable "users" {
-#   type    = set(string)
-#   default = [
-#     "Lorris",
-#     "Michel",
-#     "Guillaume",
-#     "Tristan",
-#     "Akram",
-#     "Frank",
-#     "Ludovic"
-#   ]
-# }
 #devops
 variable "devops_users" {
   type    = set(string)

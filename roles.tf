@@ -1,13 +1,26 @@
 #access type for inova company
 resource "boundary_auth_method" "password" {
-  name     = "Corp Password"
+  name     = "org_auth_method"
   scope_id = boundary_scope.corp.id
   type     = "password"
+}
+#creation de la methode d'authentification login/password pour les (devops)
+resource "boundary_account" "devops_account" {
+  for_each       = var.devops_users
+  name           = each.key
+  description    = "User account for ${each.key}"
+  type           = "password"
+  login_name     = lower(each.key)
+  password       = "password"
+  auth_method_id = boundary_auth_method.password.id
 }
 #creation des devops_users boundary 
 resource "boundary_user" "devops_users" {
   for_each    = var.devops_users
   name        = each.key
+  # [for account in boundary_account.devops_account : account.id]
+  account_ids = [ boundary_account.devops_account[each.key].id ]
+  #account_ids = [for account in boundary_account.devops_account : account.id]
   description = "User resource for ${each.key}"
   scope_id    = boundary_scope.corp.id
 }
@@ -17,16 +30,6 @@ resource "boundary_user" "readonly_users" {
   name        = each.key
   description = "User resource for ${each.key}"
   scope_id    = boundary_scope.corp.id
-}
-#creation de la methode d'authentification login/password pour les users (devops)
-resource "boundary_account" "users_account" {
-  for_each       = var.devops_users
-  name           = each.key
-  description    = "User account for ${each.key}"
-  type           = "password"
-  login_name     = lower(each.key)
-  password       = "password"
-  auth_method_id = boundary_auth_method.password.id
 }
 #creation du groupe readonly
 resource "boundary_group" "readonly" {
