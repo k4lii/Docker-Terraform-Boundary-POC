@@ -2,32 +2,32 @@
 variable "users" {
   type    = set(string)
   default = [
-    "Lorris",
-    "Michel",
-    "Guillaume",
-    "Tristan",
-    "Akram",
-    "Frank",
-    "Ludovic"
+    "Loris",
+    "Micheal",
+    "Guile",
+    "Trissn",
+    "Akra",
+    "Fran",
+    "Ludo"
   ]
 }
 #devops
 variable "devops_users" {
   type    = set(string)
   default = [
-    "Lorris",
-    "Michel",
-    "Guillaume",
-    "Tristan",
-    "Akram"
+    "Loris",
+    "Micheal",
+    "Guile",
+    "Trissn",
+    "Akra"
   ]
 }
 #readonly
 variable "readonly_users" {
   type    = set(string)
   default = [
-    "Frank",
-    "Ludovic"
+    "Fran",
+    "Ludo"
   ]
 }
 #servers ips
