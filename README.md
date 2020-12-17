@@ -1,15 +1,15 @@
 ***POC to test and deploy boundary server with terraform in docker***
-|#   [Boundary deployment]|  |
+|#   [Start the docker-compose deployment]|  |
 |---------------------------|--|
 |                           |  |
 ./run all
 
-|#   [Boundary cleanup containers/temp files]|  |
+|#   [Cleanup containers/temp files]|  |
 |---------------------------|--|
 |                           |  |
 ./run cleanup
 
-|#   [Boundary login]|  |
+|#   [Login to your Boundary CLI]|  |
 |---------------------------|--|
 |                           |  |
 ./run login
