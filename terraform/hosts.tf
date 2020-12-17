@@ -15,9 +15,9 @@ resource "boundary_host" "backend_servers" {
   host_catalog_id = boundary_host_catalog.backend_servers.id
 }
 #host sets (a revoir sur le host_ids)
-resource "boundary_host_set" "backend_servers_ssh" {
+resource "boundary_host_set" "backend_servers" {
   type            = "static"
-  name            = "backend_servers_ssh"
+  name            = "backend_servers"
   description     = "Host set for backend servers"
   host_catalog_id = boundary_host_catalog.backend_servers.id
   host_ids        = [for host in boundary_host.backend_servers : host.id]

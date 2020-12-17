@@ -1,24 +1,24 @@
 # create target for accessing backend servers on port :5000
 resource "boundary_target" "backend_servers_service" {
   type         = "tcp"
-  name         = "Backend service"
-  description  = "Backend service target"
+  name         = "Backend Redis"
+  description  = "Backend Redis target"
   scope_id     = boundary_scope.infra.id
-  default_port = "5000"
+  default_port = "6379"
 
   host_set_ids = [
-    boundary_host_set.backend_servers_ssh.id
+    boundary_host_set.backend_servers.id
   ]
 }
 # create target for accessing backend servers on port :2225
-resource "boundary_target" "backend_servers_ssh" {
+resource "boundary_target" "backend_servers" {
   type         = "tcp"
-  name         = "Backend servers"
-  description  = "Backend SSH target"
+  name         = "Backend mysql"
+  description  = "Backend mysql target"
   scope_id     = boundary_scope.infra.id
-  default_port = "2225"
+  default_port = "3306"
 
   host_set_ids = [
-    boundary_host_set.backend_servers_ssh.id
+    boundary_host_set.backend_servers.id
   ]
 }
