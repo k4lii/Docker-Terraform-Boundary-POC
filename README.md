@@ -14,4 +14,8 @@
 |                           |  |
 ./run login 
 
-login not working with script for the moment so : (boundary authenticate password -auth-method-id=ampw_lQYqii34wM -login-name=lorris -password=password -keyring-type=none -format=json | jq -r ".token" > boundary_token.txt)
+login not working with script for the moment so : 
+
+sudo apt install jq -y
+
+boundary authenticate password -auth-method-id=ampw_lQYqii34wM -login-name=lorris -password=password -keyring-type=none -format=json | jq -r ".token" > boundary_token.txt
