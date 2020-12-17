@@ -1,33 +1,20 @@
-#est-ce vraiment utile ? tour les users
-variable "users" {
-  type    = set(string)
-  default = [
-    "Loris",
-    "Micheal",
-    "Guile",
-    "Trissn",
-    "Akra",
-    "Fran",
-    "Ludo"
-  ]
-}
 #devops
 variable "devops_users" {
   type    = set(string)
   default = [
-    "Loris",
-    "Micheal",
-    "Guile",
-    "Trissn",
-    "Akra"
+    "Lorris",
+    "Michel",
+    "Guillaume",
+    "Tristan",
+    "Akram"
   ]
 }
 #readonly
 variable "readonly_users" {
   type    = set(string)
   default = [
-    "Fran",
-    "Ludo"
+    "Frank",
+    "Ludovic"
   ]
 }
 #servers ips

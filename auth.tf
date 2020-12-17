@@ -1,6 +1,6 @@
-provider "boundary" {
-  addr                            = "http://127.0.0.1:9200"
-  auth_method_id                  = "ampw_1234567890"
-  password_auth_method_login_name = "admin"
-  password_auth_method_password   = "password"
+#access type for inova company
+resource "boundary_auth_method" "password" {
+  name     = "org_auth_method"
+  scope_id = boundary_scope.org.id
+  type     = "password"
 }

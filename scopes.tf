@@ -5,7 +5,7 @@ resource "boundary_scope" "global" {
   scope_id     = "global"
 }
 #inova company
-resource "boundary_scope" "corp" {
+resource "boundary_scope" "org" {
   name                     = "Inova"
   description              = "Testing Scope"
   scope_id                 = boundary_scope.global.id
@@ -16,6 +16,6 @@ resource "boundary_scope" "corp" {
 resource "boundary_scope" "infra" {
   name                   = "INFRA"
   description            = "Testing Project"
-  scope_id               = boundary_scope.corp.id
+  scope_id               = boundary_scope.org.id
   auto_create_admin_role = true
 }
