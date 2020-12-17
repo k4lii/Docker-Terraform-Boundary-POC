@@ -12,4 +12,4 @@
 |#   [Login to your Boundary CLI]|  |
 |---------------------------|--|
 |                           |  |
-./run login
+./run login (boundary authenticate password -auth-method-id=ampw_lQYqii34wM -login-name=lorris -password=password -keyring-type=none -format=json | jq -r ".token" > boundary_token.txt)
