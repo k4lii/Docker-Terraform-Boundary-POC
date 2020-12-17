@@ -10,15 +10,15 @@ variable "devops_users" {
   ]
 }
 #readonly
-variable "readonly_users" {
+variable "leadership_users" {
   type    = set(string)
   default = [
-    "Frank",
+    "Gille",
     "Ludovic"
   ]
 }
-#servers ips
-variable "backend_server_ips" {
+#target ips
+variable "target_ips" {
   type    = set(string)
   default = [
     #"10.1.0.1",

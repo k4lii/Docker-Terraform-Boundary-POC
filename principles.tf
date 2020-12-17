@@ -6,12 +6,12 @@ resource "boundary_user" "devops_users" {
   account_ids = [ boundary_account.devops_user_acct[each.key].id ]
   scope_id    = boundary_scope.org.id
 }
-#creation des readonly_users boundary
-resource "boundary_user" "readonly_users" {
-  for_each    = var.readonly_users
+#creation des leadership_users boundary
+resource "boundary_user" "leadership_users" {
+  for_each    = var.leadership_users
   name        = each.key
   description = "ReadOnly user: ${each.key}"
-  account_ids = [ boundary_account.readonly_users_acct[each.key].id ]
+  account_ids = [ boundary_account.leadership_users_acct[each.key].id ]
   scope_id    = boundary_scope.org.id
 }
 
@@ -26,9 +26,9 @@ resource "boundary_account" "devops_user_acct" {
   auth_method_id = boundary_auth_method.password.id
 }
 
-#creation de la methode d'authentification login/password pour les readonly_users
-resource "boundary_account" "readonly_users_acct" {
-  for_each       = var.readonly_users
+#creation de la methode d'authentification login/password pour les leadership_users
+resource "boundary_account" "leadership_users_acct" {
+  for_each       = var.leadership_users
   name           = each.key
   description    = "User account for ${each.key}"
   type           = "password"
@@ -38,10 +38,10 @@ resource "boundary_account" "readonly_users_acct" {
 }
 
 #creation du groupe readonly
-resource "boundary_group" "readonly" {
-  name        = "read-only"
-  description = "Organization group for readonly users"
-  member_ids  = [for user in boundary_user.readonly_users : user.id]
+resource "boundary_group" "leadership" {
+  name        = "Leadership"
+  description = "Organization group for leadership users"
+  member_ids  = [for user in boundary_user.leadership_users : user.id]
   scope_id    = boundary_scope.org.id
 }
 #creation du groupe devops
