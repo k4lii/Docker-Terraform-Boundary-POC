@@ -9,7 +9,7 @@ services:
       - POSTGRES_DB=boundary
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-  
+#init database
   db-init:
     image: hashicorp/boundary:0.1.1
     container_name: boundary_db_init
@@ -20,7 +20,7 @@ services:
       - BOUNDARY_PG_URL=postgresql://postgres:postgres@db/boundary?sslmode=disable
     depends_on:
       - db
-
+#start boundary server
   boundary:
     image: hashicorp/boundary:0.1.1
     container_name: boundary_server
@@ -38,20 +38,24 @@ services:
 
 
 
-# Private Database Targets - not exposed to host network, only available via Boundary
-  cassandra:
-    image: bitnami/cassandra:latest
 
+# Private Database Targets - not exposed to host network, only available via Boundary
+  # cassandra:
+  #   image: bitnami/cassandra:latest
   mysql:
     image: mysql
     environment:
-      - 'MYSQL_ROOT_PASSWORD=my-secret-pw'
+      - 'MYSQL_ROOT_PASSWORD=password'
 
   redis:
     image: redis
+    ports:
+      - "6379:6379"
+    expose:
+      - "6379"
 
-  mssql:
-    image: mcr.microsoft.com/mssql/server:2017-CU8-ubuntu
-    environment:
-      - 'ACCEPT_EULA=Y'
-      - 'SA_PASSWORD=yourStrong(!)Password'
+  # mssql:
+  #   image: mcr.microsoft.com/mssql/server:2017-CU8-ubuntu
+  #   environment:
+  #     - 'ACCEPT_EULA=Y'
+  #     - 'SA_PASSWORD=yourStrong(!)Password'

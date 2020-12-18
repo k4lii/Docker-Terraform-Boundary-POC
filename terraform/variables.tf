@@ -1,4 +1,4 @@
-#devops
+#devops users -> admins
 variable "devops_users" {
   type    = set(string)
   default = [
@@ -9,7 +9,7 @@ variable "devops_users" {
     "Akram"
   ]
 }
-#readonly
+#leadership users -> readonly
 variable "leadership_users" {
   type    = set(string)
   default = [
