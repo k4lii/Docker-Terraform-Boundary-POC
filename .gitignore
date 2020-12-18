@@ -3,3 +3,4 @@ test
 terraform.tfstate.backup
 .terraform
 terraform.tfstate
+boundary_token.txt
