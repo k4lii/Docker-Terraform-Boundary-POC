@@ -5,12 +5,12 @@ resource "boundary_role" "org_admin" {
   scope_id       = boundary_scope.global.id
   grant_scope_id = boundary_scope.org.id
   grant_strings = ["id=*;type=*;actions=*"]
-  # principal_ids = [
-  #   boundary_group.devops.id
-  # ]
-  principal_ids = concat(
-    [for user in boundary_user.devops_users : user.id]
-  )
+  principal_ids = [
+    boundary_group.devops.id
+  ]
+  # principal_ids = concat(
+  #   [for user in boundary_user.devops_users : user.id]
+  # )
 }
 
 #role permettant d'etre admin sur le projet infra depuis inova
@@ -20,12 +20,12 @@ resource "boundary_role" "project_admin" {
   scope_id       = boundary_scope.org.id
   grant_scope_id = boundary_scope.infra.id
   grant_strings = ["id=*;type=*;actions=*"]
-  # principal_ids = [
-  #   boundary_group.devops.id
-  # ]
-  principal_ids = concat(
-    [for user in boundary_user.devops_users : user.id]
-  )
+  principal_ids = [
+    boundary_group.devops.id
+  ]
+  #principal_ids = concat(
+  #  [for user in boundary_user.devops_users : user.id]
+  #)
 }
 
 #role permettant d'etre en read only sur l'org

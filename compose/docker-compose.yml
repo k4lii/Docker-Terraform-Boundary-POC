@@ -36,17 +36,12 @@ services:
     depends_on:
       - db-init
 
-
-
-
 # Private Database Targets - not exposed to host network, only available via Boundary
-  # cassandra:
-  #   image: bitnami/cassandra:latest
   mysql:
     image: mysql
     environment:
       - 'MYSQL_ROOT_PASSWORD=password'
-
+#exposition de redis en attendant le fix de l'issue
   redis:
     image: redis
     ports:
@@ -54,6 +49,8 @@ services:
     expose:
       - "6379"
 
+  # cassandra:
+  #   image: bitnami/cassandra:latest
   # mssql:
   #   image: mcr.microsoft.com/mssql/server:2017-CU8-ubuntu
   #   environment:
