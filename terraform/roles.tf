@@ -39,3 +39,15 @@ resource "boundary_role" "org_readonly" {
     boundary_group.leadership.id
   ]
 }
+
+#role permettant d'etre en read only sur le projet infra depuis inova
+resource "boundary_role" "project_readonly" {
+  name        = "readonly"
+  description = "read-only role for org"
+  scope_id    = boundary_scope.org.id
+  grant_scope_id = boundary_scope.infra.id
+  grant_strings = ["id=*;type=*;actions=read,change-password"]
+  principal_ids = [
+    boundary_group.leadership.id
+  ]
+}
