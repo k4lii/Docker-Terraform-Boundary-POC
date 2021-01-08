@@ -41,18 +41,10 @@ services:
     image: mysql
     environment:
       - 'MYSQL_ROOT_PASSWORD=password'
-#exposition de redis en attendant le fix de l'issue
+#exposition de redis en attendant le fix de l'issue github
   redis:
     image: redis
     ports:
       - "6379:6379"
     expose:
       - "6379"
-
-  # cassandra:
-  #   image: bitnami/cassandra:latest
-  # mssql:
-  #   image: mcr.microsoft.com/mssql/server:2017-CU8-ubuntu
-  #   environment:
-  #     - 'ACCEPT_EULA=Y'
-  #     - 'SA_PASSWORD=yourStrong(!)Password'

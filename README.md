@@ -12,9 +12,22 @@
 |#   [Login to your Boundary CLI]|  |
 |---------------------------|--|
 |                           |  |
-./run login 
+./run login
 
-login not working with script for the moment so : 
+
+|#   [Explanation of Boundary Terraform's files]|  |
+|---------------------------|--|
+|                           |  |
+auth: auth method for boundary scopes
+hosts: list of all hosts
+main: terraform config
+principles: groups creation + accounts binded to users
+roles:binding accounts to groups/roles
+scopes:boundary hierarchy
+target:list all target than can be reached by authorized users
+variables: all variables(user strings)
+
+./run login not working with script for the moment so : 
 
 sudo apt install jq -y
 
@@ -25,6 +38,9 @@ export BOUNDARY_TOKEN=token
 
 TEST DE CONNEXION:
 boundary connect -exec redis-cli -target-id ttcp_CLMe0qgsyH
+
+
+
 
 
 

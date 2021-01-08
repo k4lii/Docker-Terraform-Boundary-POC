@@ -5,7 +5,7 @@ resource "boundary_target" "backend_servers_service" {
   description  = "Backend Redis target"
   scope_id     = boundary_scope.infra.id
   default_port = "6379"
-  session_max_seconds = 3600#temps max de connexion en s*
+  session_max_seconds = 3600#temps max de connexion en s
   session_connection_limit = 1
 
   host_set_ids = [
