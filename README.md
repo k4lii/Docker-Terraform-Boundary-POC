@@ -27,10 +27,11 @@ scopes:boundary hierarchy
 target:list all target than can be reached by authorized users
 variables: all variables(user strings)
 
+|#   [Explanation of Boundary Terraform's files]|  |
+|---------------------------|
+|                           |
 ./run login not working with script for the moment so : 
-
 boundary authenticate password -auth-method-id=ampw_lQYqii34wM -login-name=lorris -password=password -keyring-type=none -format=json | jq -r ".token" > boundary_token.txt
-
 export BOUNDARY_TOKEN=token
 
 
