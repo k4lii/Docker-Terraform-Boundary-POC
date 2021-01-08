@@ -34,7 +34,7 @@ resource "boundary_role" "org_readonly" {
   description = "read-only role for org"
   scope_id    = boundary_scope.global.id
   grant_scope_id = boundary_scope.org.id
-  grant_strings = ["id=*;type=*;actions=read,change-password"]
+  grant_strings = ["id=*;type=*;actions=read,change-password,list"]
   principal_ids = [
     boundary_group.leadership.id
   ]
