@@ -31,6 +31,7 @@ services:
       - "9200:9200"
       - "9201:9201"
       - "9202:9202"
+      #- "6379:6379"
     environment:
       - BOUNDARY_PG_URL=postgresql://postgres:postgres@db/boundary?sslmode=disable
     depends_on:
@@ -44,7 +45,5 @@ services:
 #exposition de redis en attendant le fix de l'issue github
   redis:
     image: redis
-    ports:
-      - "6379:6379"
     expose:
       - "6379"

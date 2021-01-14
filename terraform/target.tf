@@ -9,7 +9,7 @@ resource "boundary_target" "backend_servers_service" {
   session_connection_limit = 1
 
   host_set_ids = [
-    boundary_host_set.backend_servers.id
+    boundary_host_set.redis_servers.id
   ]
 }
 # create target for accessing backend servers on port :2225
