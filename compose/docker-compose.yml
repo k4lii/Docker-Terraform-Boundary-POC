@@ -16,8 +16,6 @@ services:
     command: ["database", "init", "-config", "/boundary/boundary.hcl"]
     volumes:
       - "${PWD}/:/boundary/"
-    environment:
-      - BOUNDARY_PG_URL=postgresql://postgres:postgres@db/boundary?sslmode=disable
     depends_on:
       - db
 #start boundary server
@@ -32,16 +30,9 @@ services:
       - "9201:9201"
       - "9202:9202"
       #- "6379:6379"
-    environment:
-      - BOUNDARY_PG_URL=postgresql://postgres:postgres@db/boundary?sslmode=disable
     depends_on:
       - db-init
 
-# Private Database Targets - not exposed to host network, only available via Boundary
-  mysql:
-    image: mysql
-    environment:
-      - 'MYSQL_ROOT_PASSWORD=password'
 #exposition de redis en attendant le fix de l'issue github
   redis:
     image: redis
