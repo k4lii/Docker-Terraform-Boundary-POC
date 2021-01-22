@@ -29,11 +29,9 @@ services:
       - "9200:9200"
       - "9201:9201"
       - "9202:9202"
-      #- "6379:6379"
     depends_on:
       - db-init
 
-#exposition de redis en attendant le fix de l'issue github
   redis:
     image: redis
     expose:

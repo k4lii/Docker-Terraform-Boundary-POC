@@ -1,6 +1,7 @@
 #!/bin/bash
 
 function cleanup() {
+  rm boundary_token.txt
   pushd compose
   docker-compose rm -fs 
   popd
@@ -24,42 +25,14 @@ function init_terraform() {
   popd
 }
 
-# Test with login to Boundary after provisioning
-function login() {
-  boundary authenticate password -login-name admin -password password -auth-method-id $(primary_org_ampw)
-}
-
-function primary_org_id() {
-  strip $(boundary scopes list -format json | jq  -c '.[] | select(.name | contains("primary")) | .["id"]')
-}
-
-function primary_org_ampw() {
-  strip $(boundary auth-methods list -scope-id $(primary_org_id) -format json | jq -c '.[]["id"]') 
-}
-
-function strip() {
-  echo "$1" | tr -d '"'
-}
-
-for arg in "$@"
-do
-    case $arg in
-        all)
-        init_compose
-        init_terraform
-        shift
-        ;;
-        login)
-        login
-        shift
-        ;;
-        cleanup)
-        cleanup
-        shift
-        ;;
-        *)
-        echo "cmd not found: try 'all', 'login', or 'cleanup'"
-        shift
-        ;;
-    esac
-done
+if [ "$1" ==  "all" ]; then
+  init_compose
+  init_terraform
+elif [ "$1" ==  "cleanup" ]; then
+  cleanup
+elif [ "$1" ==  "login" ]; then
+  boundary authenticate password -auth-method-id="$2" -login-name=lorris -password=password -keyring-type=none -format=json | jq -r ".token" > boundary_token.txt 
+  #export BOUNDARY_TOKEN=$(cat boundary_token.txt)
+else
+  echo "cmd not found: try 'all', 'login', or 'cleanup'"
+fi
