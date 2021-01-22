@@ -29,7 +29,7 @@ target:list all target than can be reached by authorized users
 variables: all variables(user strings)
 
 TEST DE CONNEXION:
-boundary connect -exec redis-cli -target-id ttcp_CLMe0qgsyH
+boundary connect -exec redis-cli -target-id ttcp_Mgvxjg8pjP -- -p {{boundary.port}} ping
 
 doc boundary:https://registry.terraform.io/providers/hashicorp/boundary/latest/docs/resources/group
 
