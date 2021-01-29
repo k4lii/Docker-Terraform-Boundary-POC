@@ -1,17 +1,10 @@
-# Disable memory lock: https://www.man7.org/linux/man-pages/man2/mlock.2.html
 disable_mlock = true
 
-# Controller configuration block
 controller {
-   # This name attr must be unique across all controller instances if running in HA mode
   name = "docker-controller"
   description = "A controller for a docker demo!"
-  # Database URL for postgres. This can be a direct "postgres://"
-  # URL, or it can be "file://" to read the contents of a file to
-  # supply the url, or "env://" to name an environment variable
-  # that contains the URL.
   database {
-      url = "postgresql://postgres:postgres@db/boundary?sslmode=disable"
+      url = "env://BOUNDARY_PG_URL"
   }
 }
 

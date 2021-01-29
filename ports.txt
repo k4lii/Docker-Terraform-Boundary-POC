@@ -1,0 +1,17 @@
+listener: listeners configures the addresses and ports on which Boundary will respond to requests
+
+
+By default, the API listener runs on :9200
+Listener 1: tcp (addr: "0.0.0.0:9200", max_request_duration: "1m30s", purpose: "api")
+
+The cluster listener (currently used for worker communication) uses :9201
+Listener 2: tcp (addr: "0.0.0.0:9201", max_request_duration: "1m30s", purpose: "cluster")
+
+Workers will have only one listener, marked for proxy purpose.
+Listener 3: tcp (addr: "0.0.0.0:9202", max_request_duration: "1m30s", purpose: "proxy")
+
+
+
+Note:
+le client s'authentifie au controller
+le client est authentifier, le controller le redirige sur un worker dispo sur le port 9202 qui sert de proxy vers redis(6379)

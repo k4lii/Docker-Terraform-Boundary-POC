@@ -16,6 +16,8 @@ services:
     command: ["database", "init", "-config", "/boundary/boundary.hcl"]
     volumes:
       - "${PWD}/:/boundary/"
+    environment:
+      - BOUNDARY_PG_URL=postgresql://postgres:postgres@db/boundary?sslmode=disable
     depends_on:
       - db
 #start boundary server
@@ -29,10 +31,11 @@ services:
       - "9200:9200"
       - "9201:9201"
       - "9202:9202"
+      #- "6379:6379"
+    environment:
+      - BOUNDARY_PG_URL=postgresql://postgres:postgres@db/boundary?sslmode=disable
     depends_on:
       - db-init
 
   redis:
     image: redis
-    expose:
-      - "6379"

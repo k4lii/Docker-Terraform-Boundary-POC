@@ -33,6 +33,8 @@ elif [ "$1" ==  "cleanup" ]; then
 elif [ "$1" ==  "login" ]; then
   boundary authenticate password -auth-method-id="$2" -login-name=lorris -password=password -keyring-type=none -format=json | jq -r ".token" > boundary_token.txt 
   #export BOUNDARY_TOKEN=$(cat boundary_token.txt)
+elif [ "$1" ==  "test_redis" ]; then
+  boundary connect -exec redis-cli -target-id "$2"
 else
   echo "cmd not found: try 'all', 'login', or 'cleanup'"
 fi
