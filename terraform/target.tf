@@ -10,3 +10,16 @@ resource "boundary_target" "redis" {
     boundary_host_set.redis.id
   ]
 }
+
+resource "boundary_target" "mysql" {
+  type                     = "tcp"
+  name                     = "mysql"
+  description              = "MySQL server"
+  scope_id                 = boundary_scope.infra.id
+  session_connection_limit = -1
+  session_max_seconds      = 2
+  default_port             = 3306
+  host_set_ids = [
+    boundary_host_set.mysql.id
+  ]
+}
