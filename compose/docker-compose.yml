@@ -1,29 +1,35 @@
-version: "3.1"
+version: "3.8"
+   
 services:
   db:
     image: postgres
-    restart: always
     ports:
       - 5432:5432
     environment:
       - POSTGRES_DB=boundary
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-#init database
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      #test: ["CMD", "curl", "-f", "http://localhost:5432"]
+      interval: 3s
+      timeout: 5s
+      retries: 5
+  
   db-init:
     image: hashicorp/boundary:0.1.1
-    container_name: boundary_db_init
     command: ["database", "init", "-config", "/boundary/boundary.hcl"]
     volumes:
       - "${PWD}/:/boundary/"
     environment:
       - BOUNDARY_PG_URL=postgresql://postgres:postgres@db/boundary?sslmode=disable
     depends_on:
-      - db
-#start boundary server
+      db:
+        condition: service_healthy
+
+  
   boundary:
     image: hashicorp/boundary:0.1.1
-    container_name: boundary_server
     command: ["server", "-config", "/boundary/boundary.hcl"]
     volumes:
       - "${PWD}/:/boundary/"
@@ -36,6 +42,18 @@ services:
       - BOUNDARY_PG_URL=postgresql://postgres:postgres@db/boundary?sslmode=disable
     depends_on:
       - db-init
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200"]
+      interval: 3s
+      timeout: 5s
+      retries: 5
+
+# Private Database Targets - not exposed to host network, only available via Boundary
 
   redis:
     image: redis
+
+  mysql:
+    image: mysql
+    environment:
+      - 'MYSQL_ROOT_PASSWORD=my-secret-pw'
