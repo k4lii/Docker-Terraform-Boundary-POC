@@ -15,7 +15,6 @@
 ./run login auth-method-id
 export BOUNDARY_TOKEN=$(cat boundary_token.txt)
 
-
 |#   [Explanation of Boundary Terraform's files]|  |
 |---------------------------|--|
 |                           |  |
@@ -29,7 +28,7 @@ target:list all target than can be reached by authorized users
 variables: all variables(user strings)
 
 TEST DE CONNEXION:
-boundary connect -exec redis-cli -target-id ttcp_Mgvxjg8pjP -- -p {{boundary.port}} ping
+boundary connect -exec redis-cli -target-id xxxxxx -host-id xxxxxx
 
 doc boundary:https://registry.terraform.io/providers/hashicorp/boundary/latest/docs/resources/group
 

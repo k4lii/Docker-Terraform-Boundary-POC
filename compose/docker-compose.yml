@@ -53,6 +53,9 @@ services:
   redis:
     image: redis
 
+  cassandra:
+    image: bitnami/cassandra:latest
+
   mysql:
     image: mysql
     environment:
