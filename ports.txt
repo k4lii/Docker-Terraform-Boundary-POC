@@ -32,3 +32,18 @@ Could not connect to Redis at 127.0.0.1:6379: Connection refused
 not connected> ping
 
 le worker n'arrive pas a reach le redis
+
+
+Le proxy se connecte par default au localhost sauf que les containers ne sont pas en localhost
+ex
+  "1f065063af719fb77a537e38e7de45403bb7f7ad6951906c5fc5f82e7be932a3": {
+                "Name": "compose_redis_1",
+                "EndpointID": "44e10335e4ac6bc32b93fab580ddf4827dad54845b55f550bac7b11f17aa7051",
+                "MacAddress": "02:42:c0:a8:60:02",
+                "IPv4Address": "192.168.96.2/20",
+                "IPv6Address": ""
+            },
+
+redis est donc en 192.168.96.2, donc il faut precisez l'host a join pour le worker
+comme ceci:
+boundary connect -exec redis-cli -target-id ttcp_DO37cKk8F7 -- -h 192.168.96.2 -p 6379
