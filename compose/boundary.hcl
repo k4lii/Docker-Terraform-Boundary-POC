@@ -16,36 +16,23 @@ worker {
   #public_addr = "myhost.mycompany.com"
 }
 
-# API listener configuration block
 listener "tcp" {
-# Should be the address of the NIC that the controller server will be reached on
   address = "0.0.0.0"
-# The purpose of this listener block
   purpose = "api"
   tls_disable = true 
 }
 
-# Data-plane listener configuration block (used for worker coordination)
 listener "tcp" {
-# Should be the IP of the NIC that the worker will connect on
   address = "0.0.0.0"
-# The purpose of this listener
   purpose = "cluster"
-  tls_disable   = true
-  # Uncomment to enable CORS for the Admin UI. Be sure to set the allowed origin(s)
-  # to appropriate values.
-  #cors_enabled = true
-  #cors_allowed_origins = ["yourcorp.yourdomain.com"]
+  tls_disable = true 
 }
 
 listener "tcp" {
-  address       = "0.0.0.0"
-  purpose       = "proxy"
-  tls_disable   = true 
+	address = "0.0.0.0"
+	purpose = "proxy"
+	tls_disable = true
 }
-
-# Root KMS configuration block: this is the root key for Boundary
-# Use a production KMS such as AWS KMS in production installs
 
 kms "aead" {
   purpose = "root"
@@ -54,18 +41,12 @@ kms "aead" {
   key_id = "global_root"
 }
 
-# Worker authorization KMS
-# Use a production KMS such as AWS KMS for production installs
-# This key is the same key used in the worker configuration
 kms "aead" {
   purpose = "worker-auth"
   aead_type = "aes-gcm"
   key = "8fZBjCUfN0TzjEGLQldGY4+iE9AkOvCfjh7+p0GtRBQ="
   key_id = "global_worker-auth"
 }
-
-// # Recovery KMS block: configures the recovery key for Boundary
-// # Use a production KMS such as AWS KMS for production installs
 
 kms "aead" {
   purpose = "recovery"
@@ -74,17 +55,3 @@ kms "aead" {
   key_id = "global_recovery"
 }
 
-
-
-
-
-
-
-
-// # Configuration encryption block: decrypts sensitive values in the 
-// # configuration file. See `boundary config [encrypt|decrypt] -h`.
-// kms "aead" {
-//   purpose   = "config"`
-//   aead_type = "aes-gcm"
-//   key       = "7xtkEoS5EXPbgynwd+dDLHopaCqK8cq0Rpep4eooaTs="
-// }

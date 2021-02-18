@@ -44,10 +44,8 @@ resource "boundary_role" "project_admin" {
 //   ]
 // }
 
-
-
 resource "boundary_role" "global_anon_listing" {
-  scope_id = boundary_scope.global.id
+  scope_id = "global"
   grant_strings = [
     "id=*;type=auth-method;actions=list,authenticate",
     "type=scope;actions=list",

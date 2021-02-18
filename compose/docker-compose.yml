@@ -15,10 +15,10 @@ services:
       interval: 3s
       timeout: 5s
       retries: 5
-  
+
   db-init:
     image: hashicorp/boundary:0.1.1
-    command: ["database", "init", "-config", "/boundary/boundary.hcl"]
+    command: ["database", "init", "-skip-initial-login-role-creation", "-config", "/boundary/boundary.hcl"]
     volumes:
       - "${PWD}/:/boundary/"
     environment:
@@ -37,7 +37,6 @@ services:
       - "9200:9200"
       - "9201:9201"
       - "9202:9202"
-      #- "6379:6379"
     environment:
       - BOUNDARY_PG_URL=postgresql://postgres:postgres@db/boundary?sslmode=disable
     depends_on:
@@ -47,13 +46,3 @@ services:
       interval: 3s
       timeout: 5s
       retries: 5
-
-# Private Database Targets - not exposed to host network, only available via Boundary
-
-  redis:
-    image: redis
-
-  mysql:
-    image: mysql
-    environment:
-      - 'MYSQL_ROOT_PASSWORD=my-secret-pw'

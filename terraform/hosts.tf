@@ -9,14 +9,6 @@ resource "boundary_host_catalog" "databases" {
 
 #host sets
 
-resource "boundary_host_set" "local" {
-  type            = "static"
-  name            = "local"
-  description     = "Host set for local servers"
-  host_catalog_id = boundary_host_catalog.databases.id
-  host_ids        = [boundary_host.localhost.id]
-}
-
 resource "boundary_host_set" "redis" {
   type            = "static"
   name            = "redis"
@@ -40,7 +32,7 @@ resource "boundary_host" "redis" {
   name        = "redis"
   description = "Private redis container"
   # DNS set via docker-compose
-  address         = "redis"
+  address         = "192.168.1.31"
   host_catalog_id = boundary_host_catalog.databases.id
 }
 
@@ -50,13 +42,5 @@ resource "boundary_host" "mysql" {
   description = "Private mysql container"
   # DNS set via docker-compose
   address         = "mysql"
-  host_catalog_id = boundary_host_catalog.databases.id
-}
-
-resource "boundary_host" "localhost" {
-  type            = "static"
-  name            = "localhost"
-  description     = "Localhost host"
-  address         = "localhost"
   host_catalog_id = boundary_host_catalog.databases.id
 }
