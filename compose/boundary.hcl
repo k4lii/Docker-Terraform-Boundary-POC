@@ -29,7 +29,7 @@ listener "tcp" {
 }
 
 listener "tcp" {
-	address = "0.0.0.0"
+	address = "127.0.0.1"
 	purpose = "proxy"
 	tls_disable = true
 }
