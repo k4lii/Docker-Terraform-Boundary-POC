@@ -33,8 +33,6 @@ elif [ "$1" ==  "cleanup" ]; then
 elif [ "$1" ==  "login" ]; then
   boundary authenticate password -auth-method-id="$2" -login-name=lorris -password=password -keyring-type=none -format=json | jq -r ".token" > boundary_token.txt 
   #export BOUNDARY_TOKEN=$(cat boundary_token.txt)
-elif [ "$1" ==  "test_redis" ]; then
-  boundary connect -exec ssh -target-id ttcp_oCKkfOKkP2 -- lorris@localhost -p 22
 else
   echo "cmd not found: try 'all', 'login', or 'cleanup'"
 fi

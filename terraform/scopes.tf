@@ -1,9 +1,11 @@
-#global boundary scope
 resource "boundary_scope" "global" {
   global_scope = true
   name         = "global"
   scope_id     = "global"
+   auto_create_admin_role   = true
+  auto_create_default_role = true
 }
+
 #inova company
 resource "boundary_scope" "org" {
   name                     = "Inova"
