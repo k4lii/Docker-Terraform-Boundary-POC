@@ -31,8 +31,9 @@ if [ "$1" ==  "all" ]; then
 elif [ "$1" ==  "cleanup" ]; then
   cleanup
 elif [ "$1" ==  "login" ]; then
-  boundary authenticate password -auth-method-id="$2" -login-name=lorris -password=password -keyring-type=none -format=json | jq -r ".token" > boundary_token.txt 
-  #export BOUNDARY_TOKEN=$(cat boundary_token.txt)
+  boundary authenticate password -auth-method-id="$2" -login-name="$3" -password="$4" -keyring-type=none -format=json | jq -r ".token" > boundary_token.txt 
+elif [ "$1" ==  "connect" ]; then
+  boundary connect -exec "$2" -target-id "$3" -token $(cat boundary_token.txt) -- -p {{boundary.port}}
 else
   echo "cmd not found: try 'all', 'login', or 'cleanup'"
 fi

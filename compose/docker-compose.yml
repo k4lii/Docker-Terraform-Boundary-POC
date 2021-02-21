@@ -12,8 +12,8 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       #test: ["CMD", "curl", "-f", "http://localhost:5432"]
-      interval: 3s
-      timeout: 5s
+      interval: 5s
+      timeout: 10s
       retries: 5
       
 
