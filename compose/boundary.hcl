@@ -13,13 +13,13 @@ worker {
   description = "A worker for a docker demo"
   address = "0.0.0.0"
   controllers = ["0.0.0.0"]
-  #public_addr = "myhost.mycompany.com"
+  public_addr = "127.0.0.1"
 }
 
 listener "tcp" {
   address = "0.0.0.0"
   purpose = "api"
-  tls_disable = true 
+  tls_disable = true
 }
 
 listener "tcp" {
@@ -29,7 +29,7 @@ listener "tcp" {
 }
 
 listener "tcp" {
-	address = "127.0.0.1"
+	address = "0.0.0.0"
 	purpose = "proxy"
 	tls_disable = true
 }

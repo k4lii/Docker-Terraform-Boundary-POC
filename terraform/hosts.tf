@@ -32,7 +32,7 @@ resource "boundary_host" "redis" {
   name        = "redis"
   description = "Private redis container"
   # DNS set via docker-compose
-  address         = "192.168.1.31"
+  address         = "redis"
   host_catalog_id = boundary_host_catalog.databases.id
 }
 

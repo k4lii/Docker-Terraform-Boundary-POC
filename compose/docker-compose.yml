@@ -1,5 +1,5 @@
 version: "3.8"
-   
+
 services:
   db:
     image: postgres
@@ -15,6 +15,7 @@ services:
       interval: 3s
       timeout: 5s
       retries: 5
+      
 
   db-init:
     image: hashicorp/boundary:0.1.1
@@ -45,7 +46,8 @@ services:
       interval: 3s
       timeout: 5s
       retries: 5
-  
+
   #test containers
   redis:
     image: redis
+    # command: --port 6380
