@@ -28,8 +28,7 @@ target:list all target than can be reached by authorized users
 variables: all variables(user strings)
 
 TEST DE CONNEXION:
-boundary connect -exec ssh -target-id xxxxxxx -- lorris@localhost -p 22
-boundary connect -exec redis-cli -target-id xxxxxx -- -h 192.168.96.2 -p 6379
+boundary connect -exec redis-cli  -target-id ttcp_0QtDjP7RVG  -- -p {{boundary.port}}
 
 doc boundary:https://registry.terraform.io/providers/hashicorp/boundary/latest/docs/resources/group
 
